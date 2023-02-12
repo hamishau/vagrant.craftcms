@@ -59,24 +59,17 @@ http://yourapp.local:8080
 ### Post Installation
 These are not required as a part of the Vagrant deployment process - just a collection of helpful commands that might be required at some point in your Vagrant box.
 
-#### Set all directories to 755 and files to 644, and set ownership to www-data:
+#### Set all directories to 755 and files to 644, and ownership to www-data:
 
-* `cd /var/www/html`
-* `find ./html -type d -exec chmod 0755 {} \;`
-* `find ./html -type f -exec chmod 0644 {} \;`
-* `sudo chown -R www-data:www-data ./craft`
+```
+vagrant ssh -c 'cd /var/www/html && find ./html -type d -exec chmod 0755 {} \; && find ./html -type f -exec chmod 0644 {} \; && sudo chown -R www-data:www-data ./craft`'
+```
 
-### Fix Craft Folder Permissions:
+#### Craft Folder Permissions:
 
-* `sudo chmod 777 /var/www/html/craft/.env`
-* `sudo chmod 777 /var/www/html/craft/composer.json`
-* `sudo chmod 777 /var/www/html/craft/composer.lock`
-* `sudo chmod 777 /var/www/html/craft/config/license.key`
-* `sudo chmod -R 777 /var/www/html/craft/config`
-* `sudo chmod -R 777 /var/www/html/craft/storage`
-* `sudo chmod -R 777 /var/www/html/craft/vendor`
-* `sudo chmod -R 777 /var/www/html/craft/web/cpresources`
-
+```
+vagrant ssh -c 'sudo chmod 777 /var/www/html/craft/.env && sudo chmod 777 /var/www/html/craft/composer.json && sudo chmod 777 /var/www/html/craft/composer.lock && sudo chmod 777 /var/www/html/craft/config/license.key && sudo chmod -R 777 /var/www/html/craft/config && sudo chmod -R 777 /var/www/html/craft/storage && sudo chmod -R 777 /var/www/html/craft/vendor && sudo chmod -R 777 /var/www/html/craft/web/cpresources'
+```
 
 #### Import PostgreSQL Database
 ```
