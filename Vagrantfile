@@ -15,14 +15,18 @@ Vagrant.configure("2") do |config|
     sudo apt update
     sudo apt upgrade -y
     sudo apt install apache2 -y
-    sudo apt install mysql-server -y
-    sudo apt install php libapache2-mod-php php-mysql php-curl php-imagick php-mbstring php-dom php-zip php-bcmath php-intl npm php-cli unzip -y
+    sudo apt install -y postgresql postgresql-contrib
+    sudo -u postgres createdb yourapp
+    sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'admin';"
+    sudo apt install php libapache2-mod-php php-pgsql php-curl php-imagick php-mbstring php-dom php-zip php-bcmath php-intl npm php-cli unzip -y
     sudo a2enmod rewrite
     cd ~
     curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
     HASH=`curl -sS https://composer.github.io/installer.sig`
     php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
     sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-    rm /var/www/html/index.html
+    cd /var/www/html
+    sudo mv 000-default.conf /etc/apache2/sites-available/000-default.conf
+    rm index.html
   SHELL
 end
