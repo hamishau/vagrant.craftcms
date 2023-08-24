@@ -62,7 +62,7 @@ These are not required as a part of the Vagrant deployment process - just a coll
 #### Set all directories to 755 and files to 644, and ownership to www-data:
 
 ```
-vagrant ssh -c 'cd /var/www/html && find ./html -type d -exec chmod 0755 {} \; && find ./html -type f -exec chmod 0644 {} \; && sudo chown -R www-data:www-data ./craft`'
+vagrant ssh -c 'find /var/www/html -type d -exec chmod 0755 {} \; && find /var/www/html -type f -exec chmod 0644 {} \; && sudo chown -R www-data:www-data /var/www/html/craft'
 ```
 
 #### Craft Folder Permissions:
