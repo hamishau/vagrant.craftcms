@@ -1,5 +1,5 @@
 # Introduction
-This is a guide to setup a new installation of Craft CMS and Postgres, running in an Ubuntu 22.04 Vagrant Box. Install Vagrant and Virtualbox before proceeding.
+This is a guide to setup a new installation of Craft CMS and Postgres, running in an Ubuntu 24.04 Vagrant Box. Install Vagrant and Virtualbox before proceeding.
 
 ## Clone Repository
 
@@ -22,31 +22,22 @@ vagrant up
 
 Windows Powershell: `notepad c:\Windows\System32\Drivers\etc\hosts`  
 Ubuntu Terminal: `sudo nano /etc/hosts`
+MacOS Terminal: `sudo nano /etc/hosts`
 
 ```
 192.168.56.10 yourapp.local
 ```
 
-## Install Craft and Dependencies
+## What provisioning does
+Installs Craft, writes `/var/www/html/craft/.env`, and runs the installer so the site is ready to view.
 
-Install Craft CMS, answer yes to all questions:
+Defaults:
+- Driver `pgsql`, host `127.0.0.1`, port `5432`
+- DB user `postgres`, password `admin`, database `yourapp`
+- `SECURITY_KEY` generated per provision
+- Admin user `admin` / `admin123`, email `admin@yourapp.local`
+- Site name `Your App`, URL `http://yourapp.local:8080`, language `en-US`
 
-```
-vagrant ssh -c 'sudo composer create-project craftcms/craft /var/www/html/craft'
-```
-
-Which database driver are you using? `pgsql`  
-Database server name or IP address: `127.0.0.1`  
-Database port: `5432`  
-Database username: `postgres`  
-Database password: `admin`  
-Database name: `yourapp`
-
-## Restart Apache2
-
-```
-vagrant ssh -c 'sudo systemctl restart apache2'
-```
 
 ## Preview in browser:
 
